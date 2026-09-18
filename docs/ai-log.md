@@ -1,6 +1,6 @@
 # AI Log
 
-## Step 4: Proposed Stack Comparison
+## # AI Collaboration Log
 
 ### Prompt used for both tools
 
@@ -28,5 +28,5 @@ The stack is a collection of tools that work together to organize, style, check 
 | --- | --- | --- | --- | --- | --- |
 | ChatGPT | Explain the project tools in plain language. | I used the explanation to understand the stack and write my Step 4 notes. | None. | I checked that it covered the tools listed in Step 4. | Create accessible Next.js app shell |
 | Gemini | Explain the same project tools in plain language. | I used the response to compare it with ChatGPT. | None. | I recorded two differences between the answers. | Create accessible Next.js app shell |
-| Google AI Studio | Create an App Shell Architect plan with commands and a file plan. | [Write what you actually used, or write “None.”] | [Write what you skipped, or write “None.”] | [Write what you personally checked.] | Create accessible Next.js app shell |
-| ChatGPT | Guide me through replacing the starter page for Step 8. | I used the instructions and page code to create the required heading, purpose, and three cards. | None. | I opened the page and confirmed that it loaded without a red error. | Create accessible Next.js app shell |
+| Google AI Studio | Create an App Shell Architect plan with commands and a file plan. | I used the setup instructions and file plan to understand the project structure. | I did not use the generated preview and extra code | I confirmed that the required files were created and that the local page could loaded. | Create accessible Next.js app shell |
+| ChatGPT | Guide me through replacing the starter page | I used the instructions and page code to create the required heading, purpose, and three cards. | None. | I opened the page and confirmed that it loaded without a red error. | Create accessible Next.js app shell |
