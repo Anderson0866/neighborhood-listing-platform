@@ -8,7 +8,7 @@ export default function Home() {
           </p>
 
           <h1 className="mt-3 text-4xl font-bold tracking-tight sm:text-5xl">
-            Neighborhood Listing Platform
+            Explore Neighborhood Listings
           </h1>
 
           <p className="mt-5 text-lg leading-8 text-slate-600">
