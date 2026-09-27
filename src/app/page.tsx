@@ -1,4 +1,36 @@
-export default function Home() {
+import SponsorBanner from "../components/SponsorBanner";
+import SearchFilters from "../components/SearchFilters";
+import PropertyCard from "../components/PropertyCard";
+import { properties, propertyTypes, maxPriceOptions } from "../data/properties";
+export default async function Home({
+  searchParams,
+}: {
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
+}) {
+  const params = await searchParams;
+
+  const selectedPropertyType =
+    typeof params.propertyType === "string" &&
+    propertyTypes.includes(params.propertyType)
+      ? params.propertyType
+      : undefined;
+const requestedMaxPrice =
+  typeof params.maxPrice === "string" ? Number(params.maxPrice) : NaN;
+  const selectedMaxPrice = maxPriceOptions.includes(requestedMaxPrice)
+  ? requestedMaxPrice
+  : undefined;
+
+const filteredProperties = properties.filter((property) => {
+  const matchesType =
+    selectedPropertyType === undefined ||
+    property.propertyType === selectedPropertyType;
+
+  const matchesPrice =
+    selectedMaxPrice === undefined ||
+    property.price <= selectedMaxPrice;
+
+  return matchesType && matchesPrice;
+});
   return (
     <main className="min-h-screen bg-slate-50 px-6 py-16 text-slate-900">
       <div className="mx-auto max-w-5xl">
@@ -55,7 +87,43 @@ export default function Home() {
             </article>
           </div>
         </section>
+        <section className="mt-14" aria-labelledby="sample-listings-heading">
+          <h2
+            id="sample-listings-heading"
+            className="text-center text-2xl font-semibold"
+          >
+            Explore properties
+          </h2>
+          <div className="mt-8">
+  <SearchFilters
+    propertyTypes={propertyTypes}
+    maxPriceOptions={maxPriceOptions}
+    selectedPropertyType={selectedPropertyType}
+    selectedMaxPrice={selectedMaxPrice}
+  />
+</div>             
+
+          <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            {filteredProperties.length === 0 && (
+              <p className="col-span-full text-center text-slate-600">
+                No properties match your search. Try different filters.
+              </p>
+             )}
+             {filteredProperties.map((property) => (
+              <PropertyCard key={property.id} property={property} />
+             ))}
       </div>
+      </section>
+      <div className="mt-12">
+  <SponsorBanner
+    sponsor={{
+      businessName: "Cedar & Coast Moving",
+      message: "Planning a move? Get help with packing and move preparation.",
+      destinationLink: "/partners/cedar-and-coast-moving",
+    }}
+  />
+</div>
+</div>
     </main>
   );
 }
