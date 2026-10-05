@@ -1,7 +1,7 @@
-import SponsorBanner from "../components/SponsorBanner";
+﻿import SponsorBanner from "../components/SponsorBanner";
 import SearchFilters from "../components/SearchFilters";
 import PropertyCard from "../components/PropertyCard";
-import { properties, propertyTypes, maxPriceOptions } from "../data/properties";
+import { properties, propertyTypes, maxPriceOptions, listingError, selectSponsor } from "../data/properties";
 export default async function Home({
   searchParams,
 }: {
@@ -31,6 +31,7 @@ const filteredProperties = properties.filter((property) => {
 
   return matchesType && matchesPrice;
 });
+  const featuredSponsor = selectSponsor(filteredProperties.map((property) => property.id));
   return (
     <main className="min-h-screen bg-slate-50 px-6 py-16 text-slate-900">
       <div className="mx-auto max-w-5xl">
@@ -105,8 +106,8 @@ const filteredProperties = properties.filter((property) => {
 
           <div className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
             {filteredProperties.length === 0 && (
-              <p className="col-span-full text-center text-slate-600">
-                No properties match your search. Try different filters.
+              <p role="status" aria-live="polite" className="col-span-full text-center text-slate-600">
+                {listingError ?? "No properties match your search. Try different filters."}
               </p>
              )}
              {filteredProperties.map((property) => (
@@ -115,13 +116,7 @@ const filteredProperties = properties.filter((property) => {
       </div>
       </section>
       <div className="mt-12">
-  <SponsorBanner
-    sponsor={{
-      businessName: "Cedar & Coast Moving",
-      message: "Planning a move? Get help with packing and move preparation.",
-      destinationLink: "/partners/cedar-and-coast-moving",
-    }}
-  />
+  {featuredSponsor && <SponsorBanner sponsor={featuredSponsor} />}
 </div>
 </div>
     </main>

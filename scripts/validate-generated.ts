@@ -1,8 +1,8 @@
-import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
-import { GeneratedDataSchema } from "../src/schemas/data-contracts";
+﻿import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { ValidatedListingsSchema } from "../src/lib/validate-listings";
 
 const inputPath = "data/generated/listings-01.raw.json";
-const reportPath = "data/validation/listings-01.validation.txt";
+const reportPath = "data/validation/listings-01.relationship-validation.txt";
 
 let passed = false;
 let report: string;
@@ -12,13 +12,13 @@ try {
     readFileSync(inputPath, "utf8")
   );
 
-  const result = GeneratedDataSchema.safeParse(rawData);
+  const result = ValidatedListingsSchema.safeParse(rawData);
 
   if (result.success) {
     passed = true;
     report = [
       `Input: ${inputPath}`,
-      "PASS: All records satisfy the Zod data contract.",
+      "PASS: Field rules and sponsor relationship checks passed.",
       `Properties: ${result.data.properties.length}`,
       `Sponsors: ${result.data.sponsors.length}`,
     ].join("\n");

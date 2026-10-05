@@ -1,21 +1,24 @@
-export interface Property {
-  id: string;
-  title: string;
-  propertyType: string;
-  address: string;
-  price: number;
-  bedrooms: number;
-  bathrooms: number;
-  imagePath: string;
-  imageAltText: string;
-  destinationLink: string;
-}
+﻿import type {
+  PropertyRecord,
+  SponsorRecord,
+} from "../schemas/data-contracts";
 
-export interface Sponsor {
-  businessName: string;
-  message: string;
+export type Property = Pick<
+  PropertyRecord,
+  "title" | "price" | "bedrooms" | "bathrooms"
+> & {
+  id: PropertyRecord["property_id"];
+  propertyType: PropertyRecord["property_type"];
+  address: string;
+  imagePath: PropertyRecord["image_path"];
+  imageAltText: PropertyRecord["image_alt_text"];
   destinationLink: string;
-}
+};
+
+export type Sponsor = Pick<SponsorRecord, "message"> & {
+  businessName: SponsorRecord["business_name"];
+  destinationLink: SponsorRecord["website"];
+};
 
 export interface PropertyCardProps {
   property: Property;
