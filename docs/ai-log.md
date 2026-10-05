@@ -37,3 +37,30 @@ Lab 2 accessibility review: Gemini suggested checking search-result announcement
 Lab 2 ChatGPT review: I shared the homepage, PropertyCard, SearchFilters, SponsorBanner, and property data for a semantic HTML review. ChatGPT found no required fix. It suggested that the three introductory feature summaries could optionally be list items; I kept the existing markup because the review did not establish an accessibility failure. I checked the component headings, form labels, link names, and image descriptions before making that decision.
 
 Responsive verification: I checked the homepage at 375, 768, and 1280 CSS pixels. The property cards displayed in one, two, and three columns. The filters and sponsor banner remained readable, with no sideways scrolling or clipped content.
+## Lab 3: Data contracts and model review
+
+Date: October 5, 2026
+
+### ChatGPT assistance
+
+ChatGPT helped me work through the validation workflow and PowerShell commands, improve the second generation prompt, and review the data model. It also helped draft and revise the ADR. The review and design decision are documented in docs/model-review.md and docs/adr/001-data-contract.md.
+
+### Gemini generation
+
+I used Google AI Studio structured outputs to generate synthetic property and sponsor data. Both prompts requested five properties and two sponsors. I kept each prompt, raw response, and validation report in a separate file so the two attempts could be compared.
+
+Both generations passed local field and relationship validation. For the second prompt, I added clearer instructions about unique IDs, sponsor references, service ZIP codes, and duplicate entries. Since the first response had already passed, the second attempt focused on making the instructions more specific.
+
+### Advice accepted and qualified
+
+ChatGPT and Gemini both recommended a controlled list for amenities. I kept this approach because the project uses six predefined values, and a controlled list makes them easier to validate consistently.
+
+Gemini supported the PropertySponsor junction model. It also suggested possible future improvements, including separate records for sponsor service areas, multiple property images, and sponsorship dates.
+
+I qualified Gemini's claim that a junction table establishes 3NF for the entire database. A junction table represents the many-to-many relationship, but confirming 3NF also requires reviewing field dependencies throughout the design. The current application creates PropertySponsor records in memory; it does not implement relational database tables.
+
+### Verification recorded
+
+Both generated datasets passed validation. Earlier checks also confirmed that all 13 automated tests passed.
+
+During the browser checks, the website displayed five properties without filters and two condos with a maximum price of $650,000. Searching for houses under $500,000 returned no matching properties and hid the sponsor banner.

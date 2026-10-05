@@ -1,8 +1,8 @@
-﻿import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
+import { mkdirSync, readFileSync, writeFileSync } from "node:fs";
 import { ValidatedListingsSchema } from "../src/lib/validate-listings";
 
-const inputPath = "data/generated/listings-01.raw.json";
-const reportPath = "data/validation/listings-01.relationship-validation.txt";
+const inputPath = process.argv[2] ?? "data/generated/listings-01.raw.json";
+const reportPath = "data/validation/" + inputPath.split(/[\\/]/).pop()!.replace(/\.raw\.json$/, "") + ".relationship-validation.txt";
 
 let passed = false;
 let report: string;
