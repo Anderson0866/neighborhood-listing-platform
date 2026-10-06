@@ -64,3 +64,15 @@ I qualified Gemini's claim that a junction table establishes 3NF for the entire 
 Both generated datasets passed validation. Earlier checks also confirmed that all 13 automated tests passed.
 
 During the browser checks, the website displayed five properties without filters and two condos with a maximum price of $650,000. Searching for houses under $500,000 returned no matching properties and hid the sponsor banner.
+
+### Lab 3 prompts and commit references
+
+The generation prompts are saved in docs/prompts/generation-01.txt and docs/prompts/generation-02.txt. The Gemini model-review prompt and summaries of the useful and qualified advice are recorded in docs/model-review.md.
+
+The work is recorded in these commits:
+
+- 8715385: Add strict data contracts and generated-data validation tests.
+- d4decdb: Connect validated listings to UI and test sponsor relationships.
+- 148113e: Document data-model decisions and second generation validation.
+
+These commits connect the implementation and verification evidence with the design decisions described above.
