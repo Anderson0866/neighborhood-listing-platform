@@ -1,0 +1,140 @@
+﻿Generate synthetic property-listing data for a classroom project using the configured response schema.
+
+Return only the JSON object, without Markdown fences or explanations.
+Use exactly these top level fields: synthetic, properties, sponsors.
+Set synthetic to true.
+Include exactly five properties and the two sponsors below.
+
+All addresses, listings, and businesses in these source notes are fictional. Do not search for real listings or businesses.
+
+Preserve the supplied facts exactly. Write a short description for each property using only its supplied facts. Do not invent additional amenities, contact details, or claims.
+
+Validation requirements:
+- Include every required field and no extra fields.
+- IDs must use lowercase letters, numbers, and single hyphens between words.
+- ZIP codes must be strings containing exactly five digits.
+- State must be "CA".
+- Prices are sale prices in US dollars and must be nonnegative numbers.
+- Bedrooms must be nonnegative integers.
+- Bathrooms must be nonnegative multiples of 0.5.
+- Square footage must be a positive integer.
+- Amenities must use only the schema's allowed values.
+- local_sponsors must contain sponsor IDs from the sponsor catalog.
+- Each linked sponsor must serve the property's ZIP code.
+- Property IDs and sponsor IDs must be unique.
+- Do not repeat an amenity or sponsor ID within an array.
+
+Fictional property source notes:
+
+1. property_id: maple-apartment
+title: Willow Terrace Apartment
+property_type: Apartment
+street_address: 184 Willow Lane
+city: Pasadena
+state: CA
+zip_code: "91101"
+price: 415000
+bedrooms: 2
+bathrooms: 1
+square_feet: 950
+amenities: laundry, balcony
+local_sponsors: harbor-home-finance, bright-path-moving
+image_path: /properties/apartment.jpg
+image_alt_text: Photo of apartment buildings with balconies and brick facades
+
+2. property_id: cedar-condo
+title: Harborview Condo
+property_type: Condo
+street_address: 220 Oceanview Avenue
+city: Long Beach
+state: CA
+zip_code: "90802"
+price: 585000
+bedrooms: 2
+bathrooms: 2
+square_feet: 1250
+amenities: parking, pool, gym
+local_sponsors: bright-path-moving
+image_path: /properties/condo.jpg
+image_alt_text: Photo of residential buildings beside a waterfront
+
+3. property_id: parkside-house
+title: Oakridge House
+property_type: House
+street_address: 318 Oakridge Drive
+city: San Diego
+state: CA
+zip_code: "92103"
+price: 785000
+bedrooms: 3
+bathrooms: 2
+square_feet: 1800
+amenities: parking, air_conditioning
+local_sponsors: harbor-home-finance
+image_path: /properties/house.jpg
+image_alt_text: Photo of a suburban house with a lawn and trees
+
+4. property_id: birch-apartment
+title: Juniper Court Apartment
+property_type: Apartment
+street_address: 76 Juniper Avenue
+city: Pasadena
+state: CA
+zip_code: "91101"
+price: 465000
+bedrooms: 2
+bathrooms: 1.5
+square_feet: 1100
+amenities: parking, laundry, balcony
+local_sponsors: bright-path-moving
+image_path: /properties/apartment.jpg
+image_alt_text: Photo of apartment buildings with balconies and brick facades
+
+5. property_id: sunset-condo
+title: Seabreeze Condo
+property_type: Condo
+street_address: 92 Seabreeze Lane
+city: Long Beach
+state: CA
+zip_code: "90802"
+price: 620000
+bedrooms: 2
+bathrooms: 2
+square_feet: 1300
+amenities: parking, pool, air_conditioning
+local_sponsors: harbor-home-finance, bright-path-moving
+image_path: /properties/condo.jpg
+image_alt_text: Photo of residential buildings beside a waterfront
+
+Fictional sponsor catalog:
+
+1. sponsor_id: harbor-home-finance
+business_name: Harbor Home Finance
+category: Mortgage
+message: Explore financing options for your next home.
+website: https://harborhomefinance.example
+service_zip_codes: "91101", "90802", "92103"
+
+2. sponsor_id: bright-path-moving
+business_name: Bright Path Moving
+category: Moving
+message: Plan your next move with local moving support.
+website: https://brightpathmoving.example
+service_zip_codes: "91101", "90802"
+
+Additional checks for generation attempt 02:
+
+Before returning the JSON, check the complete dataset against these rules:
+- Include exactly five properties and two sponsors, with synthetic set to true.
+- Preserve the supplied fictional facts, IDs, prices, addresses, and image paths.
+- Each property_id must be unique across all properties.
+- Each sponsor_id must be unique across all sponsors.
+- Every local_sponsors entry must match an existing sponsor_id.
+- Each linked sponsor's service_zip_codes must include that property's zip_code.
+- Do not repeat a sponsor ID within one property's local_sponsors array.
+- Do not repeat an amenity within one property's amenities array.
+- Keep ZIP codes as five-character strings.
+- Use only the fields allowed by the configured response schema.
+- Write descriptions using only the supplied facts; do not invent additional features.
+
+Return only the final JSON. Do not include your checking process.
