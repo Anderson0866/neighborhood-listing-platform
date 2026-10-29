@@ -1,5 +1,11 @@
 # AI Log
 
+## Practical persistence exam AI provenance
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Part 1 / ChatGPT Codex | Help complete the assignment step by step, using the fastest route; inspect the existing repository and establish an isolated examination branch. | Created `exam/practical-persistence-eval` from the current `feature/data-contracts` commit, checked secret and build-file ignore rules, and added `/dist/` to `.gitignore`. | Did not include three untracked property illustrations from the original working folder because they are unrelated, unreviewed work. | `git status --short --branch`; `git check-ignore -v` for `.env`, `.env.local`, `.next/`, `node_modules/`, and `dist/`; review of the resulting diff. | Pending Part 1 commit |
+
 ## # AI Collaboration Log
 
 ### Prompt used for both tools
