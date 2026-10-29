@@ -1,3 +1,9 @@
+## Practical persistence exam AI provenance
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Part 1 / ChatGPT Codex | User prompt: "help me work on this assignment step by step taking the most time efficient route"; later clarified to focus only on the 2:55 PM checkpoint. | Used the proposed `/dist/` ignore rule and AI journal structure. Created `exam/practical-persistence-eval` from commit `18e7981` in an isolated clean copy. | Rejected the initial worktree approach after Git could not create the branch ref in the original folder. Kept its three untracked illustrations out of the exam branch because they were not part of the reviewed commit. | Confirmed a clean branch; `git check-ignore -v` covers `.env`, `.env.local`, `dist/`, `.next/`, and `node_modules/`; `git ls-files` found no tracked credential or build files; `git diff --check` passed. | `2b4e480` (GitHub ignore-rule commit); this journal entry in the following commit |
+
 # AI Log
 
 ## # AI Collaboration Log
