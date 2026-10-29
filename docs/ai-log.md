@@ -4,7 +4,7 @@
 
 | Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Part 1 / ChatGPT Codex | Help complete the assignment step by step, using the fastest route; inspect the existing repository and establish an isolated examination branch. | Created `exam/practical-persistence-eval` from the current `feature/data-contracts` commit, checked secret and build-file ignore rules, and added `/dist/` to `.gitignore`. | Did not include three untracked property illustrations from the original working folder because they are unrelated, unreviewed work. | `git status --short --branch`; `git check-ignore -v` for `.env`, `.env.local`, `.next/`, `node_modules/`, and `dist/`; review of the resulting diff. | Pending Part 1 commit |
+| Part 1 / ChatGPT Codex | User prompt: "help me work on this assignment step by step taking the most time efficient route"; later clarified to focus only on the 2:55 PM checkpoint. | Used the proposed `/dist/` ignore rule and AI journal structure. Created `exam/practical-persistence-eval` from commit `18e7981` in an isolated clean copy. | Rejected the initial worktree approach after Git could not create the branch ref in the original folder. Kept its three untracked illustrations out of the exam branch because they were not part of the reviewed commit. | Confirmed a clean branch; `git check-ignore -v` covers `.env`, `.env.local`, `dist/`, `.next/`, and `node_modules/`; `git ls-files` found no tracked credential or build files; `git diff --check` passed. | `5c4d964` (initial Part 1 commit); this journal clarification in the following commit |
 
 ## # AI Collaboration Log
 
