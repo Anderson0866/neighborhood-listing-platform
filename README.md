@@ -40,3 +40,15 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 Live site: https://neighborhood-listing-platform-iota.vercel.app/ 
 
 
+## Lab 2 component hierarchy
+
+```mermaid
+flowchart TD
+    A["Home page: src/app/page.tsx"] --> B["Existing introduction and features"]
+    A --> C["Property listings section"]
+    C --> D["SearchFilters"]
+    C --> E["Listing grid"]
+    E --> F["PropertyCard for each matching property"]
+    A --> G["SponsorBanner"]
+```
+ 

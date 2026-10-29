@@ -1,3 +1,9 @@
+## Practical persistence exam AI provenance
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Part 1 / ChatGPT Codex | User prompt: "help me work on this assignment step by step taking the most time efficient route"; later clarified to focus only on the 2:55 PM checkpoint. | Used the proposed `/dist/` ignore rule and AI journal structure. Created `exam/practical-persistence-eval` from commit `18e7981` in an isolated clean copy. | Rejected the initial worktree approach after Git could not create the branch ref in the original folder. Kept its three untracked illustrations out of the exam branch because they were not part of the reviewed commit. | Confirmed a clean branch; `git check-ignore -v` covers `.env`, `.env.local`, `dist/`, `.next/`, and `node_modules/`; `git ls-files` found no tracked credential or build files; `git diff --check` passed. | `2b4e480` (GitHub ignore-rule commit); this journal entry in the following commit |
+
 # AI Log
 
 ## # AI Collaboration Log
@@ -31,3 +37,48 @@ The stack is a collection of tools that work together to organize, style, check 
 | Google AI Studio | Create an App Shell Architect plan with commands and a file plan. | I used the setup instructions and file plan to understand the project structure. | I did not use the generated preview and extra code | I confirmed that the required files were created and that the local page could loaded. | Create accessible Next.js app shell |
 | ChatGPT | Guide me through replacing the starter page | I used the instructions and page code to create the required heading, purpose, and three cards. | None. | I opened the page and confirmed that it loaded without a red error. | Create accessible Next.js app shell |
 | ChatGPT | Guide me on building a professional and strong file in NotePad for GitHub | I used the suggested six column table format. | None | I checked its appearance by comparing it to google NotePad Files images  | Create accessible Next.js app shell |
+
+Lab 2 accessibility review: Gemini suggested checking search-result announcements, link size and contrast, and the sponsor heading. I verified that the filters use a GET form that navigates to a results URL. Chrome DevTools measured a property detail link at 294.4 × 24 CSS pixels. Lighthouse scored Accessibility 100/100, and keyboard navigation worked. The sponsor aside is separate from the property section, so I kept its h2 heading. No accessibility code change was justified by this review. 
+
+Lab 2 ChatGPT review: I shared the homepage, PropertyCard, SearchFilters, SponsorBanner, and property data for a semantic HTML review. ChatGPT found no required fix. It suggested that the three introductory feature summaries could optionally be list items; I kept the existing markup because the review did not establish an accessibility failure. I checked the component headings, form labels, link names, and image descriptions before making that decision.
+
+Responsive verification: I checked the homepage at 375, 768, and 1280 CSS pixels. The property cards displayed in one, two, and three columns. The filters and sponsor banner remained readable, with no sideways scrolling or clipped content.
+## Lab 3: Data contracts and model review
+
+Date: October 5, 2026
+
+### ChatGPT assistance
+
+ChatGPT helped me work through the validation workflow and PowerShell commands, improve the second generation prompt, and review the data model. It also helped draft and revise the ADR. The review and design decision are documented in docs/model-review.md and docs/adr/001-data-contract.md.
+
+### Gemini generation
+
+I used Google AI Studio structured outputs to generate synthetic property and sponsor data. Both prompts requested five properties and two sponsors. I kept each prompt, raw response, and validation report in a separate file so the two attempts could be compared.
+
+Both generations passed local field and relationship validation. For the second prompt, I added clearer instructions about unique IDs, sponsor references, service ZIP codes, and duplicate entries. Since the first response had already passed, the second attempt focused on making the instructions more specific.
+
+### Advice accepted and qualified
+
+ChatGPT and Gemini both recommended a controlled list for amenities. I kept this approach because the project uses six predefined values, and a controlled list makes them easier to validate consistently.
+
+Gemini supported the PropertySponsor junction model. It also suggested possible future improvements, including separate records for sponsor service areas, multiple property images, and sponsorship dates.
+
+I qualified Gemini's claim that a junction table establishes 3NF for the entire database. A junction table represents the many-to-many relationship, but confirming 3NF also requires reviewing field dependencies throughout the design. The current application creates PropertySponsor records in memory; it does not implement relational database tables.
+
+### Verification recorded
+
+Both generated datasets passed validation. Earlier checks also confirmed that all 13 automated tests passed.
+
+During the browser checks, the website displayed five properties without filters and two condos with a maximum price of $650,000. Searching for houses under $500,000 returned no matching properties and hid the sponsor banner.
+
+### Lab 3 prompts and commit references
+
+The generation prompts are saved in docs/prompts/generation-01.txt and docs/prompts/generation-02.txt. The Gemini model-review prompt and summaries of the useful and qualified advice are recorded in docs/model-review.md.
+
+The work is recorded in these commits:
+
+- 8715385: Add strict data contracts and generated-data validation tests.
+- d4decdb: Connect validated listings to UI and test sponsor relationships.
+- 148113e: Document data-model decisions and second generation validation.
+
+These commits connect the implementation and verification evidence with the design decisions described above.
