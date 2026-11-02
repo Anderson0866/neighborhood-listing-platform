@@ -32,6 +32,7 @@ export function loadListings(input: unknown) {
       price: property.price,
       bedrooms: property.bedrooms,
       bathrooms: property.bathrooms,
+      square_feet: property.square_feet,
       imagePath: property.image_path,
       imageAltText: property.image_alt_text,
       destinationLink: `/properties/${property.property_id}`,

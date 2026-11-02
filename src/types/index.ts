@@ -5,7 +5,7 @@
 
 export type Property = Pick<
   PropertyRecord,
-  "title" | "price" | "bedrooms" | "bathrooms"
+  "title" | "price" | "bedrooms" | "bathrooms" | "square_feet"
 > & {
   id: PropertyRecord["property_id"];
   propertyType: PropertyRecord["property_type"];
