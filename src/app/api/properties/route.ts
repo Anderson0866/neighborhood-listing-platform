@@ -9,10 +9,28 @@ export async function GET() {
     const { url, key } = publicSupabaseConfig();
     const query = new URL("/rest/v1/properties", url);
     query.searchParams.set("status", "eq.approved");
-    query.searchParams.set("select", "id,address,price,bedrooms,bathrooms,square_feet");
+    query.searchParams.set(
+      "select",
+      "id,address,price,bedrooms,bathrooms,square_feet,property_sponsors(sponsors(name,tier))",
+    );
     const response = await fetch(query, { headers: supabaseHeaders(key), cache: "no-store" });
     if (!response.ok) return NextResponse.json({ error: "Listings unavailable" }, { status: 502 });
-    return NextResponse.json(await response.json());
+    type PublicRow = {
+      id: string;
+      address: string;
+      price: number;
+      bedrooms: number;
+      bathrooms: number;
+      square_feet: number;
+      property_sponsors?: { sponsors: { name: string; tier: string } | null }[];
+    };
+    const rows = (await response.json()) as PublicRow[];
+    return NextResponse.json(rows.map(({ property_sponsors, ...property }) => ({
+      ...property,
+      sponsors: (property_sponsors ?? [])
+        .map((link) => link.sponsors)
+        .filter((sponsor): sponsor is { name: string; tier: string } => sponsor !== null),
+    })));
   } catch {
     return NextResponse.json({ error: "Listings unavailable" }, { status: 503 });
   }

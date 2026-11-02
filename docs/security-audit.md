@@ -2,11 +2,13 @@
 
 Migration: `supabase/migrations/20261029140000_exam_schema_persistence.sql`.
 
-The user applied the migration in Supabase SQL Editor and reported `Success. No rows returned`. A follow-up query against `pg_tables` returned `rowsecurity = true` for `inquiries`, `profiles`, `properties`, `property_sponsors`, and `sponsors` (November 2, 2026). A `pg_policies` count query returned 3, 2, 6, 2, and 2 policies for those tables respectively. The role-specific outcomes below remain unverified until tested using anonymous and user session credentials.
+The user applied the migration in Supabase SQL Editor and reported `Success. No rows returned`. A follow-up query against `pg_tables` returned `rowsecurity = true` for `inquiries`, `profiles`, `properties`, `property_sponsors`, and `sponsors` (November 2, 2026). A `pg_policies` count query returned 3, 2, 6, 2, and 2 policies for those tables respectively. The role checks below used `SET LOCAL ROLE` and a test user's UID in `request.jwt.claim.sub`; remaining untested cases are marked Pending or PARTIAL.
 
-A `has_table_privilege` query for the `anon` role returned `true` for SELECT on `properties`, `false` for SELECT on `inquiries`, and `true` for INSERT on `inquiries`. This verifies table grants; row-specific policy behavior still needs a live test with sample records.
+A `has_table_privilege` query for the `anon` role returned `true` for SELECT on `properties`, `false` for SELECT on `inquiries`, and `true` for INSERT on `inquiries`. This verifies table grants; row-specific policy behavior was checked separately with sample records.
 
 The Next.js production build passed on November 2, 2026. A request to the locally running `GET /api/properties` returned HTTP 200 with `[]` from the new, empty Supabase project. This confirms the public API route can reach the database, but it does not prove approved-only filtering until sample records exist.
+
+After sample records were added, a public Supabase REST query selecting approved properties and nested sponsor name/tier returned HTTP 200 with exactly one row: `200 Exam Test Lane`, `Exam Test Sponsor`, `gold`. The route handler now uses this same public query shape and flattens its sponsor list in the API response. The direct REST result verifies the query and RLS; the final route response was not retested in this session.
 
 The user created two sample properties: `100 Exam Test Lane` (`draft`) and `200 Exam Test Lane` (`approved`). In Supabase SQL Editor, `BEGIN; SET LOCAL ROLE anon; SELECT address, status FROM public.properties ORDER BY address; ROLLBACK;` returned only `200 Exam Test Lane` with `approved` status. This is an observed positive public read and negative draft read under the anonymous role.
 
