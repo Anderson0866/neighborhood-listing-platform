@@ -1,10 +1,16 @@
 # AI Log
 
+## Practical persistence exam, Parts 2–6
+
+| Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
+| :--- | :--- | :--- | :--- | :--- | :--- |
+| Parts 2–6 / ChatGPT Codex | User requested completion of Part 2 and following sections via the most time-efficient route, avoiding computer control. | Drafted the three acceptance-criteria stories, versioned SQL schema and RLS policies, strict property validation, server-only Supabase REST route handlers, inquiry submission route, and semantic property card changes. | Kept the service role key out of request handlers; public and owner requests use the publishable key and user token so RLS remains effective. Did not treat an empty database as proof of role-specific row filtering. | Reviewed the PDF and source; the user applied the SQL migration and verified RLS flags, policies, owner isolation, inquiry privacy, and sponsor visibility. `git diff --check` and the Next.js production build passed. `GET /api/properties` returned HTTP 200 with `[]` before sample data was added. | `ab9e8a4` |
+
 ## Practical persistence exam AI provenance
 
 | Step / Tool | Prompt Summary | Model Output Used | Model Output Rejected & Rationale | Verification Method | Associated Git Commit |
 | :--- | :--- | :--- | :--- | :--- | :--- |
-| Part 1 / ChatGPT Codex | User prompt: "help me work on this assignment step by step taking the most time efficient route"; later clarified to focus only on the 2:55 PM checkpoint. | Used the proposed `/dist/` ignore rule and AI journal structure. Created `exam/practical-persistence-eval` from commit `18e7981` in an isolated clean copy. | Rejected the initial worktree approach after Git could not create the branch ref in the original folder. Kept its three untracked illustrations out of the exam branch because they were not part of the reviewed commit. | Confirmed a clean branch; `git check-ignore -v` covers `.env`, `.env.local`, `dist/`, `.next/`, and `node_modules/`; `git ls-files` found no tracked credential or build files; `git diff --check` passed. | `5c4d964` (initial Part 1 commit); this journal clarification in the following commit |
+| Part 1 / ChatGPT Codex | User prompt: "help me work on this assignment step by step taking the most time efficient route"; later clarified to focus only on the 2:55 PM checkpoint. | Used the proposed `/dist/` ignore rule and AI journal structure. Created `exam/practical-persistence-eval` from commit `18e7981` in an isolated clean copy. | Rejected the initial worktree approach after Git could not create the branch ref in the original folder. Kept its three untracked illustrations out of the exam branch because they were not part of the reviewed commit. | Confirmed a clean branch; `git check-ignore -v` covers `.env`, `.env.local`, `dist/`, `.next/`, and `node_modules/`; `git ls-files` found no tracked credential or build files; `git diff --check` passed. | `2b4e480` (GitHub ignore-rule commit); this journal entry in the following commit |
 
 ## # AI Collaboration Log
 
