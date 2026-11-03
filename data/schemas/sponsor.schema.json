@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "sponsor_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+    },
+    "business_name": {
+      "type": "string",
+      "minLength": 2
+    },
+    "category": {
+      "type": "string",
+      "enum": [
+        "Mortgage",
+        "Moving",
+        "Insurance"
+      ]
+    },
+    "message": {
+      "type": "string",
+      "minLength": 5
+    },
+    "website": {
+      "type": "string",
+      "pattern": "^https:\\/\\/"
+    },
+    "service_zip_codes": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "string",
+        "pattern": "^[0-9]{5}$"
+      }
+    }
+  },
+  "required": [
+    "sponsor_id",
+    "business_name",
+    "category",
+    "message",
+    "website",
+    "service_zip_codes"
+  ],
+  "additionalProperties": false
+}

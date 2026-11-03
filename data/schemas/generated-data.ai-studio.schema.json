@@ -1,0 +1,184 @@
+{
+  "type": "object",
+  "required": [
+    "synthetic",
+    "properties",
+    "sponsors"
+  ],
+  "properties": {
+    "synthetic": {
+      "type": "boolean",
+      "description": "Must equal true."
+    },
+    "properties": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "required": [
+          "property_id",
+          "title",
+          "property_type",
+          "description",
+          "street_address",
+          "city",
+          "state",
+          "zip_code",
+          "price",
+          "bedrooms",
+          "bathrooms",
+          "square_feet",
+          "amenities",
+          "local_sponsors",
+          "image_path",
+          "image_alt_text"
+        ],
+        "properties": {
+          "property_id": {
+            "type": "string",
+            "description": "minLength: 1. pattern: \"^[a-z0-9]+(?:-[a-z0-9]+)*$\"."
+          },
+          "title": {
+            "type": "string",
+            "description": "minLength: 3."
+          },
+          "property_type": {
+            "type": "string",
+            "enum": [
+              "Apartment",
+              "Condo",
+              "House"
+            ]
+          },
+          "description": {
+            "type": "string",
+            "description": "minLength: 10."
+          },
+          "street_address": {
+            "type": "string",
+            "description": "minLength: 3."
+          },
+          "city": {
+            "type": "string",
+            "description": "minLength: 2."
+          },
+          "state": {
+            "type": "string",
+            "enum": [
+              "CA"
+            ]
+          },
+          "zip_code": {
+            "type": "string",
+            "description": "pattern: \"^[0-9]{5}$\"."
+          },
+          "price": {
+            "type": "number",
+            "minimum": 0
+          },
+          "bedrooms": {
+            "type": "integer",
+            "minimum": 0,
+            "maximum": 9007199254740991
+          },
+          "bathrooms": {
+            "type": "number",
+            "minimum": 0,
+            "description": "multipleOf: 0.5."
+          },
+          "square_feet": {
+            "type": "integer",
+            "maximum": 9007199254740991,
+            "description": "exclusiveMinimum: 0."
+          },
+          "amenities": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "enum": [
+                "parking",
+                "laundry",
+                "balcony",
+                "air_conditioning",
+                "pool",
+                "gym"
+              ]
+            }
+          },
+          "local_sponsors": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "minLength: 1. pattern: \"^[a-z0-9]+(?:-[a-z0-9]+)*$\"."
+            }
+          },
+          "image_path": {
+            "type": "string",
+            "enum": [
+              "/properties/apartment.jpg",
+              "/properties/condo.jpg",
+              "/properties/house.jpg"
+            ]
+          },
+          "image_alt_text": {
+            "type": "string",
+            "description": "minLength: 10."
+          }
+        },
+        "description": "additionalProperties: false."
+      }
+    },
+    "sponsors": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "sponsor_id",
+          "business_name",
+          "category",
+          "message",
+          "website",
+          "service_zip_codes"
+        ],
+        "properties": {
+          "sponsor_id": {
+            "type": "string",
+            "description": "minLength: 1. pattern: \"^[a-z0-9]+(?:-[a-z0-9]+)*$\"."
+          },
+          "business_name": {
+            "type": "string",
+            "description": "minLength: 2."
+          },
+          "category": {
+            "type": "string",
+            "enum": [
+              "Mortgage",
+              "Moving",
+              "Insurance"
+            ]
+          },
+          "message": {
+            "type": "string",
+            "description": "minLength: 5."
+          },
+          "website": {
+            "type": "string",
+            "description": "pattern: \"^https:\\\\/\\\\/\"."
+          },
+          "service_zip_codes": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "description": "pattern: \"^[0-9]{5}$\"."
+            }
+          }
+        },
+        "description": "additionalProperties: false."
+      }
+    }
+  },
+  "description": "additionalProperties: false."
+}

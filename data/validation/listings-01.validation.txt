@@ -1,0 +1,4 @@
+Input: data/generated/listings-01.raw.json
+PASS: All records satisfy the Zod data contract.
+Properties: 5
+Sponsors: 2
