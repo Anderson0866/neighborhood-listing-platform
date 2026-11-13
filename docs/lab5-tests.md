@@ -40,3 +40,10 @@ with `rollback`, so they did not change stored listing values.
 
 - Signed-in property owner inserted a draft listing: 1 row returned. The test transaction was rolled back, so the listing was not saved.
 - Signed-in property owner tried to insert an approved listing: blocked with `ERROR 42501: new row violates row-level security policy for table "properties"`. No listing was added.
+
+
+### Signed-in API tests
+
+- POST `/api/listings` with a signed-in property owner created a listing with `draft` status.
+- PATCH `/api/listings` changed that owner's draft price from 450000 to 455000. A database query confirmed the new price.
+- PATCH `/api/listings` against an approved listing returned HTTP 404. A database query confirmed that its price remained 500000.
