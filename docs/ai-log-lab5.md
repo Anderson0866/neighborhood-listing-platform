@@ -50,4 +50,4 @@ ChatGPT reviewed the AI-generated initial SQL against the live schema, identifie
 
 
 
-Add the Lab 5 commit hash here after committing.
+Initial implementation commit: 724766f.
