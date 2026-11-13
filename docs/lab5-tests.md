@@ -35,3 +35,8 @@ were recorded before the new seed listing was added; later counts may differ.
 The SQL write tests used `price = price` inside transactions that ended
 
 with `rollback`, so they did not change stored listing values.
+
+### Owner listing creation
+
+- Signed-in property owner inserted a draft listing: 1 row returned. The test transaction was rolled back, so the listing was not saved.
+- Signed-in property owner tried to insert an approved listing: blocked with `ERROR 42501: new row violates row-level security policy for table "properties"`. No listing was added.
