@@ -1,3 +1,4 @@
+import LiveListings from "../components/LiveListings";
 ﻿import SponsorBanner from "../components/SponsorBanner";
 import SearchFilters from "../components/SearchFilters";
 import PropertyCard from "../components/PropertyCard";
@@ -113,8 +114,9 @@ const filteredProperties = properties.filter((property) => {
              {filteredProperties.map((property) => (
               <PropertyCard key={property.id} property={property} />
              ))}
-      </div>
+            </div>
       </section>
+      <LiveListings />
       <div className="mt-12">
   {featuredSponsor && <SponsorBanner sponsor={featuredSponsor} />}
 </div>
